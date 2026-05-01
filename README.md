@@ -1,4 +1,20 @@
-Actifs pour création de contenu Ardoise (CCNB)Ce dépôt héberge les fichiers de styles (CSS) et les scripts interactifs (JavaScript) utilisés pour la création de modules d'apprentissage dans le LMS Ardoise (D2L Brightspace) au Collège Communautaire du Nouveau-Brunswick (CCNB).📂 Architecture du dépôt/css/socle_ardoise.css : Le socle visuel principal (couleurs, typographie, rubriques)./js/ : Scripts réutilisables pour l'interactivité (à venir).⚠️ Règle d'intégration (Namespace)Pour éviter les conflits de style avec le framework Bootstrap (v4.6.1) natif d'Ardoise, une encapsulation stricte est requise.Tout le code HTML généré et lié à ce CSS doit être encapsulé dans une balise principale :<div class="ccnb-contenu">
+# Actifs pour création de contenu Ardoise (CCNB)
+
+Ce dépôt héberge les fichiers de styles (CSS) et les scripts interactifs (JavaScript) utilisés pour la création de modules d'apprentissage dans le LMS Ardoise (D2L Brightspace) au Collège Communautaire du Nouveau-Brunswick (CCNB).
+
+## 📂 Architecture du dépôt
+
+* `/css/socle_ardoise.css` : Le socle visuel principal (couleurs, typographie, rubriques).
+
+* `/js/` : Scripts réutilisables pour l'interactivité (à venir).
+
+## ⚠️ Règle d'intégration (Namespace)
+
+Pour éviter les conflits de style avec le framework Bootstrap (v4.6.1) natif d'Ardoise, **une encapsulation stricte est requise**.
+
+Tout le code HTML généré et lié à ce CSS doit être encapsulé dans une balise principale :
+
+```html
+<div class="ccnb-contenu">
     <!-- Le contenu de la page ici -->
 </div>
-🔗 Utilisation CDN (Prévisualisation)Pour charger les actifs en mode prévisualisation ou développement, utilisez les liens GitHub Pages absolus :CSS principal : https://melansp.github.io/ccnb-ardoise-assets/css/socle_ardoise.css(Note : Lors du déploiement final dans Ardoise, ces liens absolus doivent être remplacés par les chemins relatifs locaux du système de fichiers de D2L).
