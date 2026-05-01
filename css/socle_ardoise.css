@@ -1,1 +1,137 @@
-/* Your original CSS content goes here */
+/* SOCLE CSS ARDOISE - CCNB 
+   Règles : 
+   - Garder max-width 895px pour D2L
+   - Respecter la charte des couleurs
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+:root {
+    /* Couleurs Officielles CCNB (selon PDF) */
+    --ccnb-blanc: #FFFFFF;
+    --ccnb-marine: #191546;
+    --ccnb-gris-texte: #494C4E;
+    --ccnb-ciel: #9ADBF9;
+    --ccnb-ciel-40: rgba(154, 219, 249, 0.4); /* Opacité 40% pour Rubrique 1 */
+    --ccnb-turquoise: #27BDBE;
+
+    /* Typographie */
+    --font-titre: 'Roc Grotesk', 'Montserrat', sans-serif;
+    --font-texte: 'Lato', sans-serif;
+}
+
+/* ENCAPSULATION POUR ÉVITER LES CONFLITS AVEC ARDOISE/BOOTSTRAP */
+.ccnb-contenu, .ccnb-contenu * { box-sizing: border-box; }
+
+.ccnb-contenu { 
+    background-color: transparent; /* Laisse le fond d'Ardoise dicter la couleur de base */
+    color: var(--ccnb-gris-texte); 
+    font-family: var(--font-texte); 
+    font-size: 19px; /* Base 19pt selon PDF */
+    line-height: 1.5;
+}
+
+/* Typographie - Titres */
+.ccnb-contenu h1, .ccnb-contenu h2, .ccnb-contenu h3, .ccnb-contenu h4 { font-family: var(--font-titre); font-weight: 700; margin-top: 1em; margin-bottom: 0.5em; }
+.ccnb-contenu h1, .ccnb-contenu h2 { color: var(--ccnb-marine); }
+.ccnb-contenu h3.titre-objectifs { color: var(--ccnb-turquoise); }
+
+.ccnb-contenu a { color: var(--ccnb-turquoise); font-weight: 700; text-decoration: underline; }
+.ccnb-contenu a:hover { color: var(--ccnb-marine); }
+
+/* Conteneur principal (S'adapte à la contrainte Ardoise 895px) */
+.ccnb-contenu .main-container { 
+    max-width: 895px; 
+    margin: 0 auto; 
+    background: var(--ccnb-blanc); 
+    padding: 30px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+}
+
+/* Boutons : Renommé pour éviter le conflit avec .btn-primary de Bootstrap */
+.ccnb-contenu .ccnb-btn-primaire {
+    background-color: var(--ccnb-marine); 
+    color: var(--ccnb-blanc); 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-family: var(--font-titre);
+    font-weight: 700;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+.ccnb-contenu .ccnb-btn-primaire:hover { background-color: var(--ccnb-turquoise); color: var(--ccnb-marine); }
+.ccnb-contenu .ccnb-btn-primaire:focus-visible { outline: 3px solid var(--ccnb-ciel); outline-offset: 2px; }
+
+/* Indice de plein écran */
+.ccnb-contenu .fullscreen-hint { 
+    text-align: right; 
+    font-size: 0.8em; 
+    color: #64748b; 
+    margin-bottom: 10px; 
+    font-family: var(--font-texte);
+}
+
+/* =========================================
+   TYPES DE VISUELS (Tirés du PDF)
+========================================= */
+
+.ccnb-contenu .rubrique {
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
+
+.ccnb-contenu .rubrique-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.ccnb-contenu .rubrique-header i { font-size: 26px; color: var(--ccnb-marine); }
+.ccnb-contenu .rubrique-header h3 { margin: 0; font-size: 26px; }
+.ccnb-contenu .rubrique-titre { font-family: var(--font-texte); font-weight: 700; margin-bottom: 10px; }
+
+/* RUBRIQUE - NIVEAU 1 (Important, Rappel, Tâches) */
+.ccnb-contenu .rubrique-niveau-1 {
+    background-color: var(--ccnb-ciel-40);
+    border: none;
+}
+.ccnb-contenu .rubrique-niveau-1 h3, 
+.ccnb-contenu .rubrique-niveau-1 .rubrique-titre { color: var(--ccnb-marine); }
+.ccnb-contenu .rubrique-niveau-1 p { color: var(--ccnb-marine); } 
+
+/* RUBRIQUE - NIVEAU 2 (Saviez-vous, Liens) */
+.ccnb-contenu .rubrique-niveau-2 {
+    background-color: var(--ccnb-blanc);
+    border: 2px solid var(--ccnb-ciel);
+}
+.ccnb-contenu .rubrique-niveau-2 h3 { color: var(--ccnb-marine); }
+.ccnb-contenu .rubrique-niveau-2 .rubrique-titre { color: var(--ccnb-gris-texte); }
+
+/* COMPOSANT RESSOURCE (KIT DE RÉUTILISATION) */
+.ccnb-contenu .resource-section { margin-top: 40px; padding-top: 20px; border-top: 2px dashed #e2e8f0; }
+.ccnb-contenu .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+.ccnb-contenu .resource-card {
+    border: 1px solid #e2e8f0; border-radius: 6px; padding: 15px;
+    display: flex; align-items: center; gap: 10px; transition: all 0.2s;
+    background: #fff; text-decoration: none; color: var(--ccnb-gris-texte);
+}
+.ccnb-contenu .resource-card:hover { border-color: var(--ccnb-turquoise); transform: translateY(-2px); box-shadow: 0 4px 6px rgba(39, 189, 190, 0.1); }
+.ccnb-contenu .resource-card:focus-visible { outline: 3px solid var(--ccnb-ciel); }
+.ccnb-contenu .resource-icon { font-size: 1.5em; color: var(--ccnb-marine); }
+.ccnb-contenu .icon-word { color: #2b579a; } .ccnb-contenu .icon-ppt { color: #d24726; } .ccnb-contenu .icon-pdf { color: #b30b00; }
+.ccnb-contenu .resource-info h4 { margin: 0; font-size: 0.9em; font-family: var(--font-titre); color: var(--ccnb-marine); }
+.ccnb-contenu .resource-info span { font-size: 0.8em; }
+.ccnb-contenu .icon-download { margin-left: auto; color: var(--ccnb-ciel); }
+
+/* Ajustement mobile minimaliste */
+@media (max-width: 600px) {
+    .ccnb-contenu .main-container { padding: 15px; }
+}
