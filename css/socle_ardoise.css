@@ -135,3 +135,160 @@
 @media (max-width: 600px) {
     .ccnb-contenu .main-container { padding: 15px; }
 }
+/* ==========================================================================
+   EXTENSIONS POUR SOCLE_ARDOISE.CSS (Projet ACDC)
+   À copier-coller dans votre fichier CSS principal.
+   ========================================================================== */
+
+/* --- 1. EN-TÊTES ET TYPOGRAPHIE --- */
+.ccnb-page-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #27BDBE; /* Ligne Turquoise */
+    padding-bottom: 1rem;
+}
+
+.ccnb-h1 {
+    color: #191546; /* Marine */
+    margin: 0 0 0.25rem 0;
+    font-size: 2rem;
+}
+
+.ccnb-subtitle {
+    color: #64748b; /* Slate gris */
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.ccnb-section-title {
+    color: #191546;
+    border-left: 4px solid #27BDBE;
+    padding-left: 1rem;
+    margin: 2rem 0 1.5rem 0;
+    font-size: 1.4rem;
+}
+
+/* --- 2. BOÎTES DE MISE EN ÉVIDENCE (CALLOUTS) --- */
+.ccnb-callout {
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ccnb-callout-info {
+    background-color: #f0f9ff; /* Ciel très pâle */
+    border-left: 6px solid #191546; /* Marine */
+}
+
+/* Variante pour d'autres usages (ex: avertissement) */
+.ccnb-callout-warning {
+    background-color: #fffbeb; 
+    border-left: 6px solid #b45309; 
+}
+
+/* --- 3. CARTES STANDARD --- */
+.ccnb-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.ccnb-card-slate {
+    background-color: #f8fafc;
+}
+
+/* --- 4. ICÔNES RONDES --- */
+.ccnb-icon-circle {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ccnb-icon-marine {
+    background-color: #191546;
+    color: white;
+}
+.ccnb-icon-marine svg { stroke: #9ADBF9; }
+
+.ccnb-icon-turquoise {
+    background-color: #27BDBE;
+    color: #191546;
+}
+.ccnb-icon-turquoise svg { stroke: #191546; }
+
+/* --- 5. LIENS DE RESSOURCES (Issu de la zone d'embarquement) --- */
+.resource-link-simple {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    max-width: calc(100% - 4px);
+    color: #191546; 
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    transition: color 0.2s ease, transform 0.2s ease;
+    padding: 0.15rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.resource-link-simple:hover { 
+    color: #191546; 
+    transform: translateX(4px); 
+    background-color: transparent;
+}
+
+.resource-link-simple svg, 
+.resource-link-simple img { 
+    width: 18px; 
+    height: 18px; 
+    display: block;
+    flex-shrink: 0; 
+}
+
+/* --- 6. GLOSSAIRE INTERACTIF --- */
+.ccnb-mot-glossaire {
+    border-bottom: 2px dotted #27BDBE; 
+    color: #191546; 
+    cursor: help;
+    position: relative; 
+    font-weight: 600; 
+    transition: color 0.2s;
+}
+
+.ccnb-mot-glossaire:hover { 
+    color: #27BDBE; 
+}
+
+.ccnb-mot-glossaire::after {
+    content: attr(data-definition);
+    position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+    background-color: #191546; color: #ffffff; padding: 0.75rem; border-radius: 6px;
+    font-size: 0.85rem; font-family: Arial, sans-serif; font-weight: normal; line-height: 1.4;
+    white-space: normal; width: max-content; max-width: 250px;
+    z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s, bottom 0.2s;
+    pointer-events: none; text-align: left;
+}
+
+.ccnb-mot-glossaire::before {
+    content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+    border-width: 6px; border-style: solid; border-color: #191546 transparent transparent transparent;
+    opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s, bottom 0.2s;
+    pointer-events: none; z-index: 1000;
+}
+
+.ccnb-mot-glossaire:hover::after, 
+.ccnb-mot-glossaire:hover::before { 
+    opacity: 1; visibility: visible; 
+}
+
+.ccnb-mot-glossaire:hover::after { bottom: 130%; }
+.ccnb-mot-glossaire:hover::before { bottom: calc(130% - 12px); }
