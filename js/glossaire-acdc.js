@@ -1,11 +1,10 @@
 /**
  * Glossaire Interactif ACDC - CCNB
- * Script à intégrer dans les pages Ardoise.
- * Utilisation : Placer <script src="https://ton-github.io/.../glossaire.js"></script> juste avant la fermeture </body>
+ * Hébergé sur GitHub. Gère la détection et l'affichage des définitions.
  */
 
-// 1. La base de données du glossaire (Dictionnaire enrichi)
-const donneesGlossaire = {
+// 1. Le grand dictionnaire centralisé (Ajoute tous tes termes ici)
+const dictionnaireGlobal = {
     "alignement pédagogique": "Cohérence absolue entre les objectifs d'apprentissage visés, la nature des activités et les critères d'évaluation.",
     "taxonomie": "Outil (ex: Bloom, Krathwohl) classifiant la complexité cognitive ou affective des apprentissages attendus.",
     "intégrité académique": "Engagement collectif à produire un travail intellectuel authentique, honnête et respectueux de la propriété intellectuelle.",
@@ -19,13 +18,99 @@ const donneesGlossaire = {
     "collaboration": "Travailler ensemble vers un but commun avec une intégration intensive et croisée des idées (synergie).",
     "coopération": "Diviser le travail en parties indépendantes où chacun fait sa part sans réelle intégration (juxtaposition).",
     "savoir-être": "Ensemble d'attitudes, de valeurs et de croyances qui orientent les comportements professionnels (les fondations).",
-    "savoir-agir": "Résultat concret, visible et fonctionnel d'une compétence mise en action dans un contexte précis (l'édifice).",
-    "fidélité": "Cohérence et constance des jugements portés à l’aide d'une grille entre différents évaluateurs ou dans le temps.",
-    "validité": "Degré selon lequel un outil (ex: une grille) mesure réellement ce qu’il est censé mesurer.",
-    "critère": "Aspect ou dimension spécifique de la performance ou du travail qui sera évalué.",
-    "descripteur": "Énoncé qui décrit les caractéristiques observables du rendement pour un niveau de performance donné.",
-    "pondération": "Importance relative (souvent en pourcentage) attribuée à chaque critère dans le calcul de la note finale."
+    "savoir-agir": "Résultat concret, visible et fonctionnel d'une compétence mise en action dans un contexte précis (l'édific
 };
+
+function initialiserGlossaire() {
+    const conteneur = document.querySelector('.ccnb-contenu');
+    if (!conteneur) return;
+
+    // 2. Déterminer quels mots activer pour cette page spécifique
+    let motsAActiver = Object.keys(dictionnaireGlobal); // Par défaut: on active tout
+
+    // Si la page HTML a défini une liste personnalisée (window.motsGlossaireActifs)
+    if (typeof window.motsGlossaireActifs !== 'undefined' && Array.isArray(window.motsGlossaireActifs)) {
+        motsAActiver = window.motsGlossaireActifs.map(mot => mot.toLowerCase());
+    }
+
+    // 3. Créer le dictionnaire filtré pour la page
+    const donneesGlossaire = {};
+    motsAActiver.forEach(mot => {
+        if (dictionnaireGlobal[mot]) {
+            donneesGlossaire[mot] = dictionnaireGlobal[mot];
+        }
+    });
+
+    const termesActifs = Object.keys(donneesGlossaire);
+    if (termesActifs.length === 0) return; // Sécurité : aucun mot à chercher
+
+    // 4. Préparer l'expression régulière (tri par longueur et gestion des accents français)
+    const termesTries = termesActifs.sort((a, b) => b.length - a.length);
+    const regexSource = '(^|[^a-zA-ZÀ-ÿœœæç])(' + termesTries.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(s?)(?=[^a-zA-ZÀ-ÿœœæç]|$)';
+    const regexTermes = new RegExp(regexSource, 'gi');
+
+    // 5. Parcourir les nœuds de texte
+    const walker = document.createTreeWalker(conteneur, NodeFilter.SHOW_TEXT, null, false);
+    const noeudsAModifier = [];
+
+    while (walker.nextNode()) {
+        const noeud = walker.currentNode;
+        const parent = noeud.parentNode;
+        
+        // Ignorer les balises interactives ou de code
+        if (parent.closest('a, button, .ccnb-mot-glossaire, script, style, code, .slider-container')) continue;
+        
+        if (regexTermes.test(noeud.nodeValue)) {
+            noeudsAModifier.push(noeud);
+            regexTermes.lastIndex = 0; 
+        }
+    }
+
+    // 6. Remplacer et injecter les infobulles
+    noeudsAModifier.forEach(noeudTexte => {
+        const fragment = document.createDocumentFragment();
+        const texte = noeudTexte.nodeValue;
+        let dernierIndex = 0;
+        let match;
+        
+        regexTermes.lastIndex = 0;
+
+        while ((match = regexTermes.exec(texte)) !== null) {
+            const charPrecedent = match[1];
+            const terme = match[2];
+            const indexTerme = match.index + charPrecedent.length;
+
+            if (indexTerme > dernierIndex) {
+                fragment.appendChild(document.createTextNode(texte.substring(dernierIndex, indexTerme)));
+            }
+
+            const span = document.createElement('span');
+            span.className = 'ccnb-mot-glossaire';
+            const cleDictionnaire = terme.toLowerCase();
+            
+            if (donneesGlossaire[cleDictionnaire]) {
+                span.setAttribute('data-definition', donneesGlossaire[cleDictionnaire]);
+                span.textContent = terme + match[3]; 
+                fragment.appendChild(span);
+            } else {
+                fragment.appendChild(document.createTextNode(terme + match[3]));
+            }
+
+            dernierIndex = indexTerme + terme.length + match[3].length;
+        }
+
+        if (dernierIndex < texte.length) {
+            fragment.appendChild(document.createTextNode(texte.substring(dernierIndex)));
+        }
+
+        noeudTexte.parentNode.replaceChild(fragment, noeudTexte);
+    });
+}
+
+// Lancement automatique
+document.addEventListener('DOMContentLoaded', initialiserGlossaire);
+
+
 
 // 2. La logique d'injection et de modification du DOM (Optimisée)
 function initialiserGlossaire() {
