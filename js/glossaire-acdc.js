@@ -16,7 +16,7 @@ const dictionnaireGlobal = {
     "hypervigilance": "Posture d'évaluation exacerbée par le stress, où l'enseignant cherche activement à débusquer les fautes ou le plagiat.",
     "grille critériée": "Outil structuré présentant les critères et les niveaux de performance pour assurer une évaluation cohérente.",
     "collaboration": "Travailler ensemble vers un but commun avec une intégration intensive et croisée des idées (synergie).",
-    "coopération": "Diviser le travail en parties indépendantes où chacun fait sa part sans réelle intégration (juxtaposition).",
+    "coopération": "La coopération seconcentre sur un soutien mutuel pour atteindre des objectifs individuels ou collectifs.",
     "savoir-être": "Ensemble d'attitudes, de valeurs et de croyances qui orientent les comportements professionnels (les fondations).",
     "savoir-agir": "Résultat concret, visible et fonctionnel d'une compétence mise en action dans un contexte précis (l'édifice)."
 };
