@@ -1,6 +1,5 @@
 /* SOCLE CSS ARDOISE - CCNB 
    Règles : 
-   - Garder max-width 895px pour D2L
    - Respecter la charte des couleurs
 */
 
@@ -20,7 +19,12 @@
     --font-titre: 'Roc Grotesk', 'Montserrat', sans-serif;
     --font-texte: 'Lato', sans-serif;
 }
-
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Sécurité supplémentaire */
+}
 /* ENCAPSULATION POUR ÉVITER LES CONFLITS AVEC ARDOISE/BOOTSTRAP */
 .ccnb-contenu, .ccnb-contenu * { box-sizing: border-box; }
 
@@ -41,13 +45,25 @@
 .ccnb-contenu a:hover { color: var(--ccnb-marine); }
 
 /* Conteneur principal (S'adapte à la contrainte Ardoise 895px) */
-.ccnb-contenu .main-container { 
-    max-width: 895px; 
+/*.ccnb-contenu .main-container { 
+    width: 100%
+    max-width: 100%; 
     margin: 0 auto; 
     background: var(--ccnb-blanc); 
     padding: 30px; 
     border-radius: 8px; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+}*/
+.ccnb-contenu .main-container { 
+    /* Le script Ardoise ignore 'min()', donc il laissera l'iframe être fluide (100%) */
+    /* Mais ton navigateur appliquera bien la limite de 895px */
+    max-width: min(100%, 895px); 
+    margin: 0 auto; 
+    background: var(--ccnb-blanc); 
+    padding: 2rem; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+    box-sizing: border-box !important; 
 }
 
 /* Boutons : Renommé pour éviter le conflit avec .btn-primary de Bootstrap */
