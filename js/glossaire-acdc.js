@@ -19,6 +19,7 @@ const dictionnaireGlobal = {
     "coopération": "La coopération seconcentre sur un soutien mutuel pour atteindre des objectifs individuels ou collectifs.",
     "savoir-être": "Ensemble d'attitudes, de valeurs et de croyances qui orientent les comportements professionnels (les fondations).",
     "savoir-agir": "Résultat concret, visible et fonctionnel d'une compétence mise en action dans un contexte précis (l'édifice)."
+    "contexte de réalisation": "situation réaliste qui structure l’apprentissage et favorise le transfert des compétences."
 };
 
 function initialiserGlossaire() {
